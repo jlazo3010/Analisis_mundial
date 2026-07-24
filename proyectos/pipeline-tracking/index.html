@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pipeline de Tracking Propio — Jorge Lazo</title>
+<style>
+  body { background:#082319; color:#F4F1E8; font-family:'Segoe UI',sans-serif;
+         max-width:700px; margin:60px auto; padding:0 20px; line-height:1.7; }
+  h1 { color:#E8A33D; font-size:1.6rem; }
+  h2 { color:#E8A33D; font-size:1.15rem; margin-top:36px; }
+  a { color:#5DB87B; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .volver { display:inline-block; margin-bottom:24px; font-size:0.95rem; }
+  .item { margin:16px 0; padding:14px 18px; background:#0E3B2E;
+          border:1px solid #1F6F50; border-radius:10px; }
+  .item .fecha { color:#D8D2BE; font-size:0.85rem; }
+  video { width:100%; border-radius:10px; margin:20px 0;
+          border:1px solid #1F6F50; background:#000; }
+  .stack { display:inline-block; background:#0E3B2E; border:1px solid #1F6F50;
+           border-radius:6px; padding:3px 10px; margin:3px 4px 3px 0;
+           font-size:0.85rem; color:#D8D2BE; }
+  .metricas { padding:14px 18px; background:#0E3B2E; border:1px solid #1F6F50;
+              border-radius:10px; margin:20px 0; }
+  .metricas p { margin:6px 0; }
+  .nota { font-size:0.9rem; color:#D8D2BE; border-left:3px solid #E8A33D;
+          padding-left:14px; margin:24px 0; }
+</style>
+</head>
+<body>
+
+  <a class="volver" href="../../index.html">&larr; Volver al portafolio</a>
+
+  <h1>Anatomía de un contragolpe — pipeline de tracking propio</h1>
+  <p>México 0–1 Inglaterra · segundo gol de Inglaterra (Bellingham/Kane) · Mundial 2026</p>
+
+  <div>
+    <span class="stack">YOLOv11</span>
+    <span class="stack">ByteTrack</span>
+    <span class="stack">Homografía (keypoints)</span>
+    <span class="stack">Filtro de Hampel</span>
+  </div>
+
+  <video controls preload="metadata">
+    <source src="contragolpe-gol2-ingles.mp4" type="video/mp4">
+    Tu navegador no soporta el elemento de video. Puedes descargarlo
+    <a href="contragolpe-gol2-ingles.mp4">aquí</a>.
+  </video>
+
+  <h2>Qué es esto</h2>
+  <p>
+    Tracking propio sobre video de transmisión pública, sin datos de tracking
+    oficiales de proveedor. El pipeline detecta jugadores y balón (YOLOv11),
+    los sigue cuadro a cuadro (ByteTrack), agrupa por equipo, y proyecta sus
+    posiciones a coordenadas reales de cancha mediante homografía a partir de
+    un modelo de keypoints del campo. Las trayectorias se suavizan con un
+    filtro de Hampel para corregir saltos puntuales de detección.
+  </p>
+
+  <h2>La jugada en números</h2>
+  <div class="metricas">
+    <p>4+ jugadores ingleses tocan el balón en 7.8s, recorriendo ~51m de cancha</p>
+    <p>t=9.17s: México llega a 0.8m del balón — la entrada falla</p>
+    <p>En 1.2s el hueco al defensor más cercano crece de 0.8m a 9.8m</p>
+    <p>Ningún jugador de cobertura llega a tiempo tras la entrada perdida</p>
+  </div>
+
+  <div class="nota">
+    Todas las cifras salen directamente del tracking (posiciones proyectadas
+    a metros de cancha) sobre este clip — no hay estimaciones ni datos de
+    proveedor externo. Es un resultado descriptivo de la jugada, no una
+    inferencia causal.
+  </div>
+
+  <h2>Ver también</h2>
+  <div class="item">
+    <a href="../../analisis/mexico-inglaterra-gol2-ingles.html">México 2-3 Inglaterra — anatomía del 2-0 de Bellingham (análisis táctico)</a>
+    <div class="fecha">La lectura narrativa de esta misma jugada: dos escenarios, la pérdida y la ruptura</div>
+  </div>
+
+</body>
+</html>
